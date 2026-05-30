@@ -13,7 +13,7 @@
 
 int main () {
     // setup
-    const short SCREEN_WIDTH = 960, SCREEN_HEIGHT = 540;
+    const short SCREEN_WIDTH = 1358, SCREEN_HEIGHT = 764;
     const unsigned char FPS = 60;
 
     // boilerplate
