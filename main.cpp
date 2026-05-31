@@ -25,33 +25,50 @@ int main () {
     Renderer renderer;
 
 
-    Polygon testShape({{100, 100}, {100, 200}, {200, 200}});
-    Polygon testShape2({{400, 100}, {400, 200}, {500, 200}, {500, 100}});
-    Vec2 testVector(100, 30);
-    Vec2 testVector2(30, 100);
+    double radius = 1.0;
+    short segs = 1200;
+
+    std::vector<Vec2> points;
+
+    for (int i = 0; i < segs; i++) {
+
+        points.push_back(Vec2(i * radius, 0));
+
+    }
 
     
     while (WindowShouldClose() == false){
         // input
         Vec2 mouse = Vec2(GetMouseX(), GetMouseY());
 
+        points[0] = mouse;
+
         // update
+        for (int i = 1; i < segs; i++) {
 
-        testShape.moveTo(mouse);
+            Vec2 prev = points[i - 1];
+            Vec2 current = points[i];
 
-        
-        testVector2 = mouse;
+            Vec2 distance = current - prev;
 
-        Color color;
-        color = testShape.collide(testShape2) ? YELLOW : GREEN;
-        
+            if (distance.magnitude() > radius) {
+
+                distance = distance.normalize() * radius;
+                points[i] = points[i - 1] + distance;
+
+            }
+
+        }
+
         // render
         BeginDrawing();
             ClearBackground(BLACK);
-            renderer.draw(testShape2, RED);
-            renderer.draw(testShape, color);
 
+            for (int i = 1; i < segs; i++) {
 
+                renderer.draw(points[i - 1], RED, points[i]);
+
+            }
 
         EndDrawing();
     }
