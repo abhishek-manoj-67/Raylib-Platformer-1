@@ -9,12 +9,16 @@
 
 void Renderer::draw(const Polygon& poly, const Color& color, bool hollow) {
 
-    for (int i = 0; i < poly.vertices.size(); i++) {
+    if (!poly.vertices.empty()) {
 
-        const Vec2& end = poly.vertices[(i + 1) % poly.vertices.size()];
-        const Vec2& start = poly.vertices[i];
+        for (std::size_t i = 0; i < (poly.vertices.size()); i++) {
 
-        draw(end, color, start);
+            const Vec2& end = poly.vertices[(i + 1) % poly.vertices.size()];
+            const Vec2& start = poly.vertices[i];
+
+            draw(end, color, start);
+
+        }
 
     }
 

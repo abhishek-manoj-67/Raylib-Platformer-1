@@ -24,51 +24,18 @@ int main () {
     // variables
     Renderer renderer;
 
-
-    double radius = 1.0;
-    short segs = 1200;
-
-    std::vector<Vec2> points;
-
-    for (int i = 0; i < segs; i++) {
-
-        points.push_back(Vec2(i * radius, 0));
-
-    }
-
-    
     while (WindowShouldClose() == false){
         // input
         Vec2 mouse = Vec2(GetMouseX(), GetMouseY());
 
-        points[0] = mouse;
-
         // update
-        for (int i = 1; i < segs; i++) {
-
-            Vec2 prev = points[i - 1];
-            Vec2 current = points[i];
-
-            Vec2 distance = current - prev;
-
-            if (distance.magnitude() > radius) {
-
-                distance = distance.normalize() * radius;
-                points[i] = points[i - 1] + distance;
-
-            }
-
-        }
 
         // render
         BeginDrawing();
             ClearBackground(BLACK);
 
-            for (int i = 1; i < segs; i++) {
 
-                renderer.draw(points[i - 1], RED, points[i]);
 
-            }
 
         EndDrawing();
     }
